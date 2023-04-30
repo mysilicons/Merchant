@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private Button btnServiceRelease;
     private Button btnServiceManagement;
     private Button btnOrderManagement;
     private Button btnLogout;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             //跳转到登录页面
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         } else {
             //已经登录
             //跳转到主页面
@@ -49,9 +51,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListener() {
+        btnServiceRelease = findViewById(R.id.btn_service_release);
         btnServiceManagement = findViewById(R.id.btn_service_management);
         btnOrderManagement = findViewById(R.id.btn_order_management);
         btnLogout = findViewById(R.id.btn_logout);
+
+        btnServiceRelease.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ServiceReleaseActivity.class);
+            startActivity(intent);
+        });
 
         btnServiceManagement.setOnClickListener(v -> {
             Intent intent = new Intent(this, ServiceManagementActivity.class);
@@ -70,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
+            finish();
         });
 
     }

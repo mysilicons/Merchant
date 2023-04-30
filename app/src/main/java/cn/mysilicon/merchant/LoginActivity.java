@@ -1,6 +1,7 @@
 package cn.mysilicon.merchant;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,8 +12,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSONArray;
+
 import java.io.IOException;
 
+import cn.mysilicon.merchant.entity.Merchant;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnRegister;
     private String username;
     private String password;
-    private String token;
+    Merchant merchant = new Merchant();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +44,20 @@ public class LoginActivity extends AppCompatActivity {
     private void initListener() {
         login_username = findViewById(R.id.edt_login_username);
         login_password = findViewById(R.id.edt_login_password);
-        username = login_username.getText().toString();
-        password = login_password.getText().toString();
 
         btn_login = findViewById(R.id.btn_login);
         btnRegister = findViewById(R.id.btn_registerActivity);
 
         btn_login.setOnClickListener(v -> {
+            username = login_username.getText().toString();
+            password = login_password.getText().toString();
             login(username, password);
         });
 
         btnRegister.setOnClickListener(v -> {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 
@@ -61,16 +66,24 @@ public class LoginActivity extends AppCompatActivity {
             switch (msg.what) {
                 case 0:
                     Intent intent = new Intent();
-                    if (token.equals("")) {
+                    if (merchant.getToken().equals("")) {
                         //登录失败
                         //提示用户登录失败
                         //跳转到登录页面
-                        Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
                     } else {
                         //登录成功
                         //保存token
                         //跳转到主页面
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", merchant.getToken());
+                        editor.putString("username", merchant.getUsername());
+                        editor.putInt("id", merchant.getId());
+                        editor.apply();
                         intent = new Intent(LoginActivity.this, MainActivity.class);
+                        finish();
                     }
                     startActivity(intent);
                     break;
@@ -86,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             OkHttpClient client = new OkHttpClient();
             //2.创建Request对象
             String url = "http://mysilicon.cn/merchant/login?username=" + username + "&password=" + password;
+            Log.d(TAG,"url: " + url);
             Request request = new Request.Builder()
                     .url(url)
                     .post(RequestBody.create("", null))
@@ -93,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             //3.创建一个call对象,参数就是Request请求对象
             Call call = client.newCall(request);
             //4.执行请求
-            Response response = null;
+            Response response;
             try {
                 response = call.execute();
             } catch (IOException e) {
@@ -103,12 +117,12 @@ public class LoginActivity extends AppCompatActivity {
             String result;
             try {
                 result = response.body().string();
-                token = result;
             } catch (IOException e) {
+                Toast.makeText(LoginActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
                 throw new RuntimeException(e);
             }
-            Log.d(TAG,"token: " + token);
-            Log.d(TAG,"result: " + result);
+            Log.d(TAG, "result: " + result);
+            merchant = JSONArray.parseObject(result, Merchant.class);
             handler.sendEmptyMessage(0);
         }).start();
     }
