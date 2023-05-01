@@ -108,22 +108,21 @@ public class LoginActivity extends AppCompatActivity {
             Call call = client.newCall(request);
             //4.执行请求
             Response response;
-            try {
-                response = call.execute();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            //5.获取响应的结果
             String result;
             try {
+                response = call.execute();
                 result = response.body().string();
             } catch (IOException e) {
-                Toast.makeText(LoginActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
                 throw new RuntimeException(e);
             }
-            Log.d(TAG, "result: " + result);
-            merchant = JSONArray.parseObject(result, Merchant.class);
-            handler.sendEmptyMessage(0);
+            if (response.code() != 200) {
+                Looper.prepare();
+                Toast.makeText(LoginActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }else {
+                merchant = JSONArray.parseObject(result, Merchant.class);
+                handler.sendEmptyMessage(0);
+            }
         }).start();
     }
 }

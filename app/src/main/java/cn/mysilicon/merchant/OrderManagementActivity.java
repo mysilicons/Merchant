@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,7 +66,7 @@ public class OrderManagementActivity extends AppCompatActivity {
                     .get()
                     .build();
             Call call = client.newCall(request);
-            Response response;
+            Response response = null;
             String result = null;
             try {
                 response = call.execute();
@@ -73,8 +74,14 @@ public class OrderManagementActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            orderList = JSONArray.parseArray(result, Order.class);
-            handler.sendEmptyMessage(0);
+            if (response.code()!=200){
+                Looper.prepare();
+                Toast.makeText(OrderManagementActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }else {
+                orderList = JSONArray.parseArray(result, Order.class);
+                handler.sendEmptyMessage(0);
+            }
         }).start();
     }
 

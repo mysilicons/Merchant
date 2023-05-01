@@ -1,6 +1,8 @@
 package cn.mysilicon.merchant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import cn.mysilicon.merchant.R;
+import cn.mysilicon.merchant.ServiceDetailActivity;
 import cn.mysilicon.merchant.entity.Service;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHolder> {
@@ -41,6 +44,16 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         holder.tvServiceContent.setText(service.getContent());
         holder.tvServicePrice.setText(String.valueOf(service.getPrice()));
         Glide.with(mContext).load(service.getImage_url()).into(holder.ivServiceImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ServiceDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", service.getId());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

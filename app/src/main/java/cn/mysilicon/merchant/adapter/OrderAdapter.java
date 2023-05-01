@@ -1,6 +1,8 @@
 package cn.mysilicon.merchant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +16,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import cn.mysilicon.merchant.OrderDetailActivity;
 import cn.mysilicon.merchant.R;
 import cn.mysilicon.merchant.entity.Order;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
     private static final String TAG = "OrderAdapter";
     private Context mContext;
     private List<Order> orderList;
@@ -26,6 +29,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         this.orderList = orderList;
         this.mContext = context;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,6 +47,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         holder.tvOrderName.setText(order.getUsername());
         holder.tvOrderPhone.setText(order.getPhone());
         holder.tvOrderAddress.setText(order.getAddress());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", order.getId());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -58,6 +72,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         TextView tvOrderName;
         TextView tvOrderPhone;
         TextView tvOrderAddress;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvOrderNumber = itemView.findViewById(R.id.tv_order_number);

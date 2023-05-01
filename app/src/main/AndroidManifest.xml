@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Merchant"
         tools:targetApi="31">
         <activity
+            android:name=".ServiceDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".ServiceReleaseActivity"
             android:exported="false" />
         <activity

@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,7 +63,7 @@ public class ServiceManagementActivity extends AppCompatActivity {
                     .get()
                     .build();
             Call call = client.newCall(request);
-            Response response;
+            Response response = null;
             String result = null;
             try {
                 response = call.execute();
@@ -70,9 +71,15 @@ public class ServiceManagementActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            serviceList = JSONArray.parseArray(result, Service.class);
-            Log.d(TAG, "getServiceData: " + serviceList.size());
-            handler.sendEmptyMessage(0);
+            if (response.code()!=200){
+                Looper.prepare();
+                Toast.makeText(ServiceManagementActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }else {
+                serviceList = JSONArray.parseArray(result, Service.class);
+                Log.d(TAG, "getServiceData: " + serviceList.size());
+                handler.sendEmptyMessage(0);
+            }
         }).start();
     }
 
@@ -109,5 +116,11 @@ public class ServiceManagementActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getServiceData(merchant_id);
     }
 }

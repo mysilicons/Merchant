@@ -105,16 +105,17 @@ public class RegisterActivity extends AppCompatActivity {
             Response response;
             try {
                 response = call.execute();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
                 result = response.body().string();
             } catch (IOException e) {
-                Toast.makeText(RegisterActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
                 throw new RuntimeException(e);
             }
-            handler.sendEmptyMessage(0);
+            if (response.code()!=200){
+                Looper.prepare();
+                Toast.makeText(RegisterActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }else {
+                handler.sendEmptyMessage(0);
+            }
         }).start();
     }
 

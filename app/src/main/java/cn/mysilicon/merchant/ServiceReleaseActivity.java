@@ -538,12 +538,14 @@ public class ServiceReleaseActivity extends AppCompatActivity {
             } catch (IOException e) {
                 Looper.prepare();
                 Toast.makeText(ServiceReleaseActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
+                Looper.loop();
                 throw new RuntimeException(e);
             }
             if (response.code() != 200) {
                 Looper.prepare();
                 Log.d(TAG,"发布服务返回结果：" + result);
                 Toast.makeText(ServiceReleaseActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }else {
                 Log.d(TAG,"发布服务返回结果：" + result);
                 handler.sendEmptyMessage(0);
