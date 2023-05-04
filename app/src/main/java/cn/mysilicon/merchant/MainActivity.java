@@ -1,5 +1,6 @@
 package cn.mysilicon.merchant;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,10 +9,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMOptions;
+
+import cn.mysilicon.CustomerMessageActivity;
+
 public class MainActivity extends AppCompatActivity {
     private Button btnServiceRelease;
     private Button btnServiceManagement;
     private Button btnOrderManagement;
+    private Button btnCustomerMessage;
     private Button btnLogout;
     private TextView tvUsername;
     private String username;
@@ -22,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Context context = getApplicationContext();
+        EMOptions options = new EMOptions();
+        options.setAppKey("1140230503163929#demo");
+        // 其他 EMOptions 配置。
+        EMClient.getInstance().init(context, options);
 
         //判断用户是否登录
         //如果没有登录，跳转到登录页面
@@ -54,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         btnServiceRelease = findViewById(R.id.btn_service_release);
         btnServiceManagement = findViewById(R.id.btn_service_management);
         btnOrderManagement = findViewById(R.id.btn_order_management);
+        btnCustomerMessage = findViewById(R.id.btn_customer_message);
         btnLogout = findViewById(R.id.btn_logout);
 
         btnServiceRelease.setOnClickListener(v -> {
@@ -68,6 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
         btnOrderManagement.setOnClickListener(v -> {
             Intent intent = new Intent(this, OrderManagementActivity.class);
+            startActivity(intent);
+        });
+
+        btnCustomerMessage.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CustomerMessageActivity.class);
             startActivity(intent);
         });
 

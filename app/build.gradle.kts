@@ -41,4 +41,5 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.0")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.google.code.gson:gson:2.8.9")
+    implementation("io.hyphenate:hyphenate-chat:3.9.5")
 }

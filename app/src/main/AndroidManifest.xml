@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- IM SDK required start -->
+    <!-- 允许程序振动，用于本地通知设置振动 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 访问网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取运营商信息，用于获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序在手机屏幕关闭后后台进程仍然运行 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Merchant"
         tools:targetApi="31">
+        <activity
+            android:name="cn.mysilicon.MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name="cn.mysilicon.CustomerMessageActivity"
+            android:exported="false" />
         <activity
             android:name=".ServiceDetailActivity"
             android:exported="false" />

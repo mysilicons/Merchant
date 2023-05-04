@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.fastjson.JSONArray;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import java.io.IOException;
 
@@ -72,6 +74,20 @@ public class LoginActivity extends AppCompatActivity {
                         //跳转到登录页面
                         Toast.makeText(LoginActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
                     } else {
+                        EMClient.getInstance().login(username, password, new EMCallBack() {
+                            // 登录成功回调
+                            @Override
+                            public void onSuccess() {
+                            }
+                            // 登录失败回调，包含错误信息
+                            @Override
+                            public void onError(final int code, final String error) {
+                            }
+                            @Override
+                            public void onProgress(int i, String s) {
+                            }
+                        });
+
                         //登录成功
                         //保存token
                         //跳转到主页面
