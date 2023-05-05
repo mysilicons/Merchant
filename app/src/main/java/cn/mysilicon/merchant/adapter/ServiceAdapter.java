@@ -44,15 +44,12 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ViewHold
         holder.tvServiceContent.setText(service.getContent());
         holder.tvServicePrice.setText(String.valueOf(service.getPrice()));
         Glide.with(mContext).load(service.getImage_url()).into(holder.ivServiceImage);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, ServiceDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", service.getId());
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(mContext, ServiceDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", service.getId());
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
         });
     }
 

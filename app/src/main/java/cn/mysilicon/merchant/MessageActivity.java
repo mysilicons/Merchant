@@ -1,4 +1,4 @@
-package cn.mysilicon;
+package cn.mysilicon.merchant;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,7 +26,6 @@ import com.hyphenate.chat.EMMessage;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.mysilicon.merchant.R;
 import cn.mysilicon.merchant.adapter.MsgAdapter;
 import cn.mysilicon.merchant.entity.Msg;
 

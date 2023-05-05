@@ -21,10 +21,13 @@
         android:theme="@style/Theme.Merchant"
         tools:targetApi="31">
         <activity
-            android:name="cn.mysilicon.MessageActivity"
+            android:name=".CustomerCommentActivity"
             android:exported="false" />
         <activity
-            android:name="cn.mysilicon.CustomerMessageActivity"
+            android:name=".MessageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerMessageActivity"
             android:exported="false" />
         <activity
             android:name=".ServiceDetailActivity"

@@ -1,4 +1,4 @@
-package cn.mysilicon;
+package cn.mysilicon.merchant;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import cn.mysilicon.merchant.R;
 
 public class CustomerMessageActivity extends AppCompatActivity {
 

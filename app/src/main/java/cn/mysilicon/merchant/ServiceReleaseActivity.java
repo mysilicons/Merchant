@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -499,12 +500,20 @@ public class ServiceReleaseActivity extends AppCompatActivity {
         });
 
         btn_service_release.setOnClickListener(v -> {
-            String name = et_service_name.getText().toString();
-            String content = et_service_content.getText().toString();
-            String price = et_service_price.getText().toString();
-            String image = et_service_image.getText().toString();
-            Service service = new Service(classification1_id, classification2_id, image, name, content, price, City, merchant_id);
-            releaseService(service);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ServiceReleaseActivity.this);
+            builder.setTitle("提示");
+            builder.setMessage("确认发布服务？");
+            builder.setPositiveButton("确认", (dialog, which) -> {
+                String name = et_service_name.getText().toString();
+                String content = et_service_content.getText().toString();
+                String price = et_service_price.getText().toString();
+                String image = et_service_image.getText().toString();
+                Service service = new Service(classification1_id, classification2_id, image, name, content, price, City, merchant_id);
+                releaseService(service);
+            });
+            builder.setNegativeButton("取消", (dialog, which) -> {
+            });
+            builder.show();
         });
 
     }
