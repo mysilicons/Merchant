@@ -531,14 +531,14 @@ public class ServiceReleaseActivity extends AppCompatActivity {
 
     private void releaseService(Service service) {
         new Thread(() -> {
-            OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/merchant/service/release";
-            Request request = new Request.Builder()
+            OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象
+            String url = "http://mysilicon.cn/merchant/service/release";//请求接口地址
+            Request request = new Request.Builder()//创建Request 对象
                     .url(url)
                     .post(RequestBody.create(MediaType.parse("application/json"), JSON.toJSONString(service)))
                     .build();
-            Call call = client.newCall(request);
-            Log.d(TAG,"JSON：" + JSON.toJSONString(service));
+            Call call = client.newCall(request);//创建Call请求
+            Log.d(TAG,"JSON：" + JSON.toJSONString(service));//输出JSON
             Response response;
             String result;
             try {
