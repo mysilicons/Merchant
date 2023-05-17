@@ -98,7 +98,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
         new Thread(() -> {
             //获取订单数据
             OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/service/delete?id=" + id;
+            String url = "http://你的服务器地址/service/delete?id=" + id;
             Request request = new Request.Builder()
                     .url(url)
                     .delete()
@@ -124,7 +124,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
         new Thread(() -> {
             //获取订单数据
             OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/service/update";
+            String url = "http://你的服务器地址/service/update";
             Request request = new Request.Builder()
                     .url(url)
                     .post(RequestBody.create(MediaType.parse("application/json"), JSON.toJSONString(submitService)))
@@ -150,7 +150,7 @@ public class ServiceDetailActivity extends AppCompatActivity {
         new Thread(() -> {
             //获取订单数据
             OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/service/get?id=" + id;
+            String url = "http://你的服务器地址/service/get?id=" + id;
             Request request = new Request.Builder()
                     .url(url)
                     .get()

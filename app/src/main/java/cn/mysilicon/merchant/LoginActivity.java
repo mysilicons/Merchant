@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             //1.创建OkHttpClient对象
             OkHttpClient client = new OkHttpClient();
             //2.创建Request对象
-            String url = "http://mysilicon.cn/merchant/login?username=" + username + "&password=" + password;
+            String url = "http://你的服务器地址/merchant/login?username=" + username + "&password=" + password;
             Log.d(TAG,"url: " + url);
             Request request = new Request.Builder()
                     .url(url)

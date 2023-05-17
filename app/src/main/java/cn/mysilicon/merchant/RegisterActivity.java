@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void register(String username, String password) {
         new Thread(() -> {
             OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/merchant/register?username=" + username + "&password=" + password;
+            String url = "http://你的服务器地址/merchant/register?username=" + username + "&password=" + password;
             Log.d(TAG, "register: " + url);
             Request request = new Request.Builder()
                     .url(url)

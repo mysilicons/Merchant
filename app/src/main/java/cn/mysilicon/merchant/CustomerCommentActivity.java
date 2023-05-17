@@ -51,7 +51,7 @@ public class CustomerCommentActivity extends AppCompatActivity {
 
     private void getMercahntComment(Integer userId) {
         new Thread(() -> {
-            String url = "http://mysilicon.cn/merchant/getMerchantComment?merchant_id=" + userId;
+            String url = "http://你的服务器地址/merchant/getMerchantComment?merchant_id=" + userId;
             Log.d("CustomerCommentActivity", url);
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()

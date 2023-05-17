@@ -137,7 +137,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
-                        .url("http://mysilicon.cn/order/cancel?id=" + id)
+                        .url("http://你的服务器地址/order/cancel?id=" + id)
                         .post(RequestBody.create("", null))
                         .build();
                 Response response = null;
@@ -164,7 +164,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         new Thread(() -> {
             //获取订单数据
             OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/merchant/order/delete?id=" + id;
+            String url = "http://你的服务器地址/merchant/order/delete?id=" + id;
             Log.d("url", url);
             Request request = new Request.Builder()
                     .url(url)
@@ -212,7 +212,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         new Thread(() -> {
             //获取订单数据
             OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/merchant/order/get?id=" + id;
+            String url = "http://你的服务器地址/merchant/order/get?id=" + id;
             Request request = new Request.Builder()
                     .url(url)
                     .get()

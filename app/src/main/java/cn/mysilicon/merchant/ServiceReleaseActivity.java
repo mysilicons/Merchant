@@ -532,7 +532,7 @@ public class ServiceReleaseActivity extends AppCompatActivity {
     private void releaseService(Service service) {
         new Thread(() -> {
             OkHttpClient client = new OkHttpClient();//创建OkHttpClient对象
-            String url = "http://mysilicon.cn/merchant/service/release";//请求接口地址
+            String url = "http://你的服务器地址/merchant/service/release";//请求接口地址
             Request request = new Request.Builder()//创建Request 对象
                     .url(url)
                     .post(RequestBody.create(MediaType.parse("application/json"), JSON.toJSONString(service)))

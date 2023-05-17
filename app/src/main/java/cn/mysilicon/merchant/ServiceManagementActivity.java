@@ -57,7 +57,7 @@ public class ServiceManagementActivity extends AppCompatActivity {
         new Thread(() -> {
             //获取服务数据
             OkHttpClient client = new OkHttpClient();
-            String url = "http://mysilicon.cn/merchant/service/list?merchant_id=" + merchant_id;
+            String url = "http://你的服务器地址/merchant/service/list?merchant_id=" + merchant_id;
             Request request = new Request.Builder()
                     .url(url)
                     .get()
